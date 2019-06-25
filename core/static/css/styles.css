@@ -3,3 +3,14 @@
     padding: 0;
     list-style: none;
 }
+
+.book-list img {
+    width: 10%;
+    margin: 5px;
+}
+
+.book-list li{
+    list-style: none;
+    display: flex;
+}
+

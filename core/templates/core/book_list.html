@@ -4,10 +4,15 @@
   <h1>Welcome to FreeShelf</h1>
   <p>a website developed by <em>Andy Dearing</em>!</p>
   {% if book_list %}
-  <ul>
+  <ul class="book-list">
     {% for book in book_list %}
       <li>
-        {{ book.title}} by {{ book.author }} - <a href="{{ book.url }}">{{book.url}}</a>
+        {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
+        <div class='book-info'>
+          {{ book.title}} by {{ book.author }} 
+          <br>
+          <a href="{{ book.url }}">{{book.url}}</a>
+        </div>
       </li>
     {% endfor %}
   </ul>

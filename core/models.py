@@ -6,6 +6,7 @@ class Book(models.Model):
     url = models.URLField(unique=True)
     description = models.TextField(max_length=1000)
     added_at = models.DateTimeField(auto_now_add=True)
+    image_url = models.URLField(null=True)
 
     class Meta:
         ordering = [ 'added_at', 'title']
