@@ -15,6 +15,9 @@ def all_books(request):
 
     book_list = Book.objects.all().order_by(sort_by)
     
+    # test_book = Book.objects.first()
+    # breakpoint()
+
     return render(request, 'core/book_list.html', {
         'book_list': book_list,
         'sort_by': sort_by,

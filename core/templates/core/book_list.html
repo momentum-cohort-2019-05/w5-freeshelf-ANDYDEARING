@@ -26,6 +26,13 @@
           <br>
           {{ book.description }}
           <br>
+          <p>
+            <strong>Categories: </strong>
+            {% for type in book.category.all %}
+              <a href="">{{ type }}</a>
+            {% endfor %}
+          </p>
+          <br>
           <i>Added at {{ book.added_at }}</i>
         </div>
       </li>
