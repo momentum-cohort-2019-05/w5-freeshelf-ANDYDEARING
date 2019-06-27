@@ -59,3 +59,9 @@ def favorites(request,pk):
         'sort_by': sort_by,
         'sort_types': sort_types,
      })
+
+def book_detail(request,pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, 'core/book_detail.html', {
+        'book' : book,
+    })

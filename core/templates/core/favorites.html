@@ -19,7 +19,7 @@
       <li>
         {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
         <div class='book-info'>
-          <strong>{{ book.title}}</strong> by {{ book.author }} 
+          <a href="{{book.get_absolute_url}}"><strong>{{ book.title }}</strong></a> by {{ book.author }} 
           <br>
           <a href="{{ book.url }}">{{book.url}}</a>
           <br>

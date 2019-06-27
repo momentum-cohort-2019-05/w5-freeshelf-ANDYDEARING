@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <a href="{{book.get_absolute_url}}"><h1>{{ book.title }}</h1></a> by {{ book.author }} 
+    <div>
+    {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
+    </div>
+    <br>
+    <a href="{{ book.url }}">{{book.url}}</a>
+    <br>
+    {{ book.description }}
+    <br>
+    <p>
+        <strong>Categories: </strong>
+        {% for type in book.category.all %}
+            <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+        {% endfor %}
+    </p>
+    <br>
+    <i>Added at {{ book.added_at }}</i>     
+{% endblock %}
