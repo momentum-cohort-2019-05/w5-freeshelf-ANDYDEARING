@@ -1,5 +1,8 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 class Category(models.Model):
     name = models.CharField(max_length=200)
@@ -9,9 +12,6 @@ class Category(models.Model):
 
     def get_absolute_url(self):
         return reverse('category-books', args=[str(self.id)])
-
-
-
 
 class Book(models.Model):
     title = models.CharField(max_length=200)
@@ -28,3 +28,15 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
+# class FavoriteFolder(models.Model):
+#     # should be two foreign keys
+#     # class meta unique together
+#     user = models.OneToOneField(User, on_delete=models.CASCADE)
+#     favorite_books = models.ManyToManyField(Book)
+
+#     def __str__(self):
+#         return f"{self.user.name} favorites"
+    
+#     def get_absolute_url(self):
+#         breakpoint()
+#         return reverse('favorite-folder', args=[str(self.id)])

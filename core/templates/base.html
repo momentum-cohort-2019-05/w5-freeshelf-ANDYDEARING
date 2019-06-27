@@ -15,6 +15,7 @@
   {% if request.user.is_authenticated %}
     <p>Logged in as {{request.user}} 
       <a href="{% url 'auth_logout' %}">Logout</a>
+      <a href="">Favorites</a>
     </p>
   {% else %}
   <p>
