@@ -26,6 +26,7 @@ urlpatterns = [
 
 urlpatterns += [
     path('core/', include('core.urls')),
+    path('accounts/', include('registration.backends.default.urls')),
 ]
 
 urlpatterns += [
