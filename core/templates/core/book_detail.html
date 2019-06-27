@@ -21,6 +21,8 @@
     {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
     </div>
     <br>
+    <p>This has been favorited by {{ book.times_favorited}} user(s).</p>
+    <br>
     <a href="{{ book.url }}">{{book.url}}</a>
     <br>
     {{ book.description }}

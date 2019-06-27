@@ -21,6 +21,7 @@ class Book(models.Model):
     added_at = models.DateTimeField(auto_now_add=True)
     image_url = models.URLField(null=True)
     category = models.ManyToManyField(Category)
+    times_favorited = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = [ 'added_at', 'title']

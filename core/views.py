@@ -70,9 +70,13 @@ def book_detail(request,pk):
             book = Book.objects.get(pk=pk)
             if favorited:
                 new_fav = Favorite(user=request.user,favorite_book=book)
+                book.times_favorited += 1
+                book.save()
                 new_fav.save()
             else:
                 old_fav = Favorite.objects.filter(user=request.user).filter(favorite_book=book).first()
+                book.times_favorited -= 1
+                book.save()
                 old_fav.delete()
 
         return redirect(to='book-detail', pk=pk)
