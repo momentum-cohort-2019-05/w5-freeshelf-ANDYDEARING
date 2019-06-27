@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 django-registration-redux = "*"
+gunicorn = "*"
+django-heroku = "*"
 
 [requires]
 python_version = "3.7"
