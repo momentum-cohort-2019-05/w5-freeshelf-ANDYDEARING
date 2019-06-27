@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.views import generic
-from core.models import Book, Category
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404, redirect, render
+from core.models import Book, Category, Favorite
+from core.forms import FavoriteButtonForm
 
 # Create your views here.
 class BookListView(generic.ListView):
@@ -61,12 +63,30 @@ def favorites(request,pk):
      })
 
 def book_detail(request,pk):
-    book = Book.objects.get(pk=pk)
-    fave_list = book.favorite_set.all()
-    favorite_users=[]
-    for favorite in fave_list:
-        favorite_users.append(favorite.user)
-    return render(request, 'core/book_detail.html', {
-        'book' : book,
-        'favorite_users' : favorite_users
-    })
+    if request.method == 'POST':
+        form = FavoriteButtonForm(request.POST)
+        if form.is_valid():
+            favorited = form.cleaned_data['favorited']
+            book = Book.objects.get(pk=pk)
+            if favorited:
+                new_fav = Favorite(user=request.user,favorite_book=book)
+                new_fav.save()
+            else:
+                old_fav = Favorite.objects.filter(user=request.user).filter(favorite_book=book).first()
+                old_fav.delete()
+
+        return redirect(to='book-detail', pk=pk)
+
+    else:            
+        form = FavoriteButtonForm()
+        book = Book.objects.get(pk=pk)
+        fave_list = book.favorite_set.all()
+        favorite_users=[]
+        for favorite in fave_list:
+            favorite_users.append(favorite.user)
+        return render(request, 'core/book_detail.html', {
+            'book' : book,
+            'favorite_users' : favorite_users,
+            'form' : form
+        })
+

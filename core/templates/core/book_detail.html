@@ -4,9 +4,17 @@
     <a href="{{book.get_absolute_url}}"><h1>{{ book.title }}</h1></a> by {{ book.author }} 
     {% if user.is_authenticated %}
         {% if user in favorite_users %}
-        <h3>Unfavorite</h3>
+            <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="{{ form.favorited.html_name }}" value="False">
+                <button>Unfavorite</button>
+            </form>
         {% else %}
-        <h3>Favorite</h3>
+            <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="{{ form.favorited.html_name }}" value="True">
+                <button>Favorite</button>
+            </form>
         {% endif %}
     {% endif %}
     <div>
