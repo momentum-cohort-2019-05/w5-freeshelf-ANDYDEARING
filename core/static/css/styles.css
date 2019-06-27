@@ -4,8 +4,9 @@
     list-style: none;
 }
 
+
 .book-list img {
-    width: 10%;
+    width: 100px;
     margin: 5px;
 }
 
