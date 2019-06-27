@@ -28,15 +28,14 @@ class Book(models.Model):
     def __str__(self):
         return self.title
 
-# class FavoriteFolder(models.Model):
-#     # should be two foreign keys
-#     # class meta unique together
-#     user = models.OneToOneField(User, on_delete=models.CASCADE)
-#     favorite_books = models.ManyToManyField(Book)
+class Favorite(models.Model):
+    # should be two foreign keys
+    # class meta unique together
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    favorite_book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
-#     def __str__(self):
-#         return f"{self.user.name} favorites"
-    
-#     def get_absolute_url(self):
-#         breakpoint()
-#         return reverse('favorite-folder', args=[str(self.id)])
+    def __str__(self):
+        return f"{self.user}|{self.favorite_book}"
+
+    class Meta:
+        unique_together = [ 'user', 'favorite_book' ]

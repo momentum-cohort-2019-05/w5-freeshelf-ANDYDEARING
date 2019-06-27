@@ -38,19 +38,24 @@ def category_books(request, pk):
         'category_name': category_name
      })
 
-# def favorite_folder(request,pk):
-#     sort_types = ['added_at', 'author', 'title',]
-#     user_name = User.objects.get(id=pk).name
-#     sort_by = request.GET.get('sort_by', default='added_at')
-#     if sort_by not in sort_types:
-#         sort_by = 'added_at'
+def favorites(request,pk):
+    sort_types = ['added_at', 'author', 'title',]
+    user_name = User.objects.get(id=pk).username
+    sort_by = request.GET.get('sort_by', default='added_at')
+    if sort_by not in sort_types:
+        sort_by = 'added_at'
 
-#     curr_folder = FavoriteFolder.objects.get(owner=request.user)
-#     book_list = curr_folder.favorite_books.order_by(sort_by)
+    # need to figure out the logic and syntax here
+    book_list = []
+    # for book in request.user.favorite_set.all:
+    #     book_list.append(book)
+    fave_list = request.user.favorite_set.all()
+    for favorite in fave_list:
+        book_list.append(favorite.book)
 
-#     return render(request, 'core/favorite_folder.html', {
-#         'user_name': user_name,
-#         'book_list': book_list,
-#         'sort_by': sort_by,
-#         'sort_types': sort_types,
-#      })
+    return render(request, 'core/favorites.html', {
+        'user_name': user_name,
+        'book_list': book_list,
+        'sort_by': sort_by,
+        'sort_types': sort_types,
+     })
