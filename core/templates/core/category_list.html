@@ -1,8 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>Welcome to FreeShelf</h1>
-  <p>a website developed by <em>Andy Dearing</em>!</p>
+  <h1>{{ category_name }}</h1>
   {% if book_list %}
   <div>
     <p>Sort by:
@@ -29,7 +28,7 @@
           <p>
             <strong>Categories: </strong>
             {% for type in book.category.all %}
-              <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+                <a href="{{ type.get_absolute_url }}">{{ type }}</a>
             {% endfor %}
           </p>
           <br>
