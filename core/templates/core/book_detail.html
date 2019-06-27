@@ -2,6 +2,13 @@
 
 {% block content %}
     <a href="{{book.get_absolute_url}}"><h1>{{ book.title }}</h1></a> by {{ book.author }} 
+    {% if user.is_authenticated %}
+        {% if user in favorite_users %}
+        <h3>Unfavorite</h3>
+        {% else %}
+        <h3>Favorite</h3>
+        {% endif %}
+    {% endif %}
     <div>
     {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
     </div>
@@ -17,5 +24,5 @@
         {% endfor %}
     </p>
     <br>
-    <i>Added at {{ book.added_at }}</i>     
+    <i>Added at {{ book.added_at }}</i> 
 {% endblock %}

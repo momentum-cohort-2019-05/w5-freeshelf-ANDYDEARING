@@ -62,6 +62,11 @@ def favorites(request,pk):
 
 def book_detail(request,pk):
     book = Book.objects.get(pk=pk)
+    fave_list = book.favorite_set.all()
+    favorite_users=[]
+    for favorite in fave_list:
+        favorite_users.append(favorite.user)
     return render(request, 'core/book_detail.html', {
         'book' : book,
+        'favorite_users' : favorite_users
     })
