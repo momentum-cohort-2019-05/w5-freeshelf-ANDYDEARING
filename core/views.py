@@ -51,7 +51,7 @@ def favorites(request,pk):
     #     book_list.append(book)
     fave_list = request.user.favorite_set.all()
     for favorite in fave_list:
-        book_list.append(favorite.book)
+        book_list.append(favorite.favorite_book)
 
     return render(request, 'core/favorites.html', {
         'user_name': user_name,
