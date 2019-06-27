@@ -30,7 +30,7 @@ urlpatterns += [
 ]
 
 urlpatterns += [
-    path('', RedirectView.as_view(url='/home/', permanent=True)),
+    path('', RedirectView.as_view(url='/core/', permanent=True)),
 ]
 
 # Use static() to add url mapping to serve static files during development (only)
