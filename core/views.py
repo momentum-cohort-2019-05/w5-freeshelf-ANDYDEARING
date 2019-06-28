@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from core.models import Book, Category, Favorite
+from core.models import Book, Category, Favorite, Comment
 from core.forms import FavoriteButtonForm, CommentCreateForm
 
 # Create your views here.
@@ -88,7 +88,10 @@ def book_detail(request,pk):
         favorite_users=[]
         for favorite in fave_list:
             favorite_users.append(favorite.user)
+        comments = book.comment_set.all()
+        # breakpoint()
         return render(request, 'core/book_detail.html', {
+            'comments' : comments,
             'book' : book,
             'favorite_users' : favorite_users,
             'form' : form
@@ -96,7 +99,14 @@ def book_detail(request,pk):
 
 def make_comment(request,pk):
     if request.method == 'POST':
-        pass
+        form = CommentCreateForm(request.POST)
+        if form.is_valid():
+            # breakpoint()
+            content = form.cleaned_data['content']
+            book = Book.objects.get(pk=pk)
+            new_comment = Comment(user=request.user,content=content,target_book=book)
+            new_comment.save()
+        return redirect(to='book-detail', pk=pk)
     else:
         form = CommentCreateForm()
         book = Book.objects.get(pk=pk)

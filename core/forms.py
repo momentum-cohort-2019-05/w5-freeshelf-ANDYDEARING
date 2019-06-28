@@ -5,4 +5,4 @@ class FavoriteButtonForm(forms.Form):
     favorited = forms.BooleanField(required=False)
 
 class CommentCreateForm(forms.Form):
-    content = forms.Textarea()
+    content = forms.CharField(max_length=1000)

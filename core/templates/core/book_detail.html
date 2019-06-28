@@ -37,4 +37,12 @@
     <i>Added at {{ book.added_at }}</i> 
     <br>
     <a href="{% url 'make-comment' pk=book.pk %}">Make Comment</a>
+    <div>
+        <h3>User Comments</h3>
+        {% for comment in comments %}
+        <p>{{comment.content}}</p>
+        <p>{{comment.user}}</p>
+        <p>{{comment.created_at}}</p>
+        {% endfor %}
+    </div>
 {% endblock %}
