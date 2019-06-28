@@ -18,7 +18,7 @@
         {% endif %}
     {% endif %}
     <div>
-    {% if book.image_url %}<img src="{{book.image_url}}">{% endif %}
+    {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}"></a>{% endif %}
     </div>
     <br>
     <p>This has been favorited by {{ book.times_favorited}} user(s).</p>
