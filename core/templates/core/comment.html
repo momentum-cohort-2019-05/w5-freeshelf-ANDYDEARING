@@ -1,4 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Make Comment</h1>
+    <h1>Commenting on {{ book }}</h1>
+    <form action="{% url 'make-comment' pk=book.pk %}" method="POST">
+        {% csrf_token %}
+        <input type="text" size="50" name="{{ form.content.html_name }}" value="Write your comment here.">
+        <br>
+        <br>
+        <button>Submit</button>
+    </form>
+
 {% endblock %}
