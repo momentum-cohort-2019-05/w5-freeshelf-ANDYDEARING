@@ -41,16 +41,13 @@ def category_books(request, pk):
      })
 
 def favorites(request,pk):
-    sort_types = ['added_at', 'author', 'title',]
+    sort_types = ['favorited_at','added_at', 'author', 'title',]
     user_name = User.objects.get(id=pk).username
-    sort_by = request.GET.get('sort_by', default='added_at')
+    sort_by = request.GET.get('sort_by', default='favorited_at')
     if sort_by not in sort_types:
-        sort_by = 'added_at'
+        sort_by = 'favorited_at'
 
-    # need to figure out the logic and syntax here
     book_list = []
-    # for book in request.user.favorite_set.all:
-    #     book_list.append(book)
     fave_list = request.user.favorite_set.all()
     for favorite in fave_list:
         book_list.append(favorite.favorite_book)

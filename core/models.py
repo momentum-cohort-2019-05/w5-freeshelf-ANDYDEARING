@@ -33,16 +33,16 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
 class Favorite(models.Model):
-    # should be two foreign keys
-    # class meta unique together
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     favorite_book = models.ForeignKey(Book, on_delete=models.CASCADE)
+    favorited_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.user}|{self.favorite_book}"
 
     class Meta:
         unique_together = [ 'user', 'favorite_book' ]
+        ordering = [ '-favorited_at']
 
 class Comment(models.Model):
     """Model representing a comment"""
