@@ -35,4 +35,6 @@
     </p>
     <br>
     <i>Added at {{ book.added_at }}</i> 
+    <br>
+    <a href="{% url 'make-comment' pk=book.pk %}">Make Comment</a>
 {% endblock %}

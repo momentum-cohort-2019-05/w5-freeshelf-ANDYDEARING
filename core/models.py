@@ -43,3 +43,18 @@ class Favorite(models.Model):
 
     class Meta:
         unique_together = [ 'user', 'favorite_book' ]
+
+class Comment(models.Model):
+    """Model representing a comment"""
+    content = models.TextField(max_length=1000, help_text='Enter your comment (1000 chars max).')
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    target_book = models.ForeignKey('Book', on_delete=models.CASCADE, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        """sorts by the reverse of the post_date"""
+        ordering = [ '-created_at' ]
+
+    def __str__(self):
+        """String for representing the Model object."""
+        return self.content

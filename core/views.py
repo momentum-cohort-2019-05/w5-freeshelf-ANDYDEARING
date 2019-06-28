@@ -3,7 +3,7 @@ from django.views import generic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from core.models import Book, Category, Favorite
-from core.forms import FavoriteButtonForm
+from core.forms import FavoriteButtonForm, CommentCreateForm
 
 # Create your views here.
 class BookListView(generic.ListView):
@@ -92,5 +92,17 @@ def book_detail(request,pk):
             'book' : book,
             'favorite_users' : favorite_users,
             'form' : form
+        })
+
+def make_comment(request,pk):
+    if request.method == 'POST':
+        pass
+    else:
+        form = CommentCreateForm()
+        book = Book.objects.get(pk=pk)
+
+        return render(request, 'core/comment.html', {
+            'book' : book,
+            'form' : form,
         })
 

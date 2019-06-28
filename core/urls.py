@@ -7,4 +7,5 @@ urlpatterns = [
         path('category/<int:pk>', views.category_books, name='category-books'),
         path('favorites/<int:pk>', views.favorites, name='favorites'),
         path('book-detail/<int:pk>', views.book_detail, name='book-detail'),
+        path('make-comment/<int:pk>', views.make_comment, name='make-comment')
 ]
