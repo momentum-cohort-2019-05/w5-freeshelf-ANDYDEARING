@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Staff Page</h1>
+    <div>
+        <a href="{% url 'add-book' %}">Add Book</a>
+    </div>
     {% if book_list %}
         {% for book in book_list %}
         <div>
@@ -13,7 +16,4 @@
     {% else %}
         <p>There are no books.</p>
     {% endif %}
-    <div>
-        <a href="">Add Book</a>
-    </div>
 {% endblock %}

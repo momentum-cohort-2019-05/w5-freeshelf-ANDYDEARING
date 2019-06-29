@@ -148,7 +148,10 @@ def edit_book(request,pk):
             book.url = form.cleaned_data['url']
             book.description = form.cleaned_data['description']
             book.image_url = form.cleaned_data['image_url']
-            book.category_set = form.cleaned_data['category']
+            book.save()
+            book.category.clear()
+            for category in form.cleaned_data['category']:
+                book.category.add(category.id)
             book.save()
         return redirect(to='staff')
     else:
@@ -165,3 +168,27 @@ def delete_book(request,pk):
     book.delete()
     return redirect(to='staff')
 
+@permission_required('core.can_add_edit_delete')
+def add_book(request):
+    new_book = Book()
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            new_book.title = form.cleaned_data['title']
+            new_book.author = form.cleaned_data['author']
+            new_book.url = form.cleaned_data['url']
+            new_book.description = form.cleaned_data['description']
+            new_book.image_url = form.cleaned_data['image_url']
+            new_book.save()
+            for category in form.cleaned_data['category']:
+                new_book.category.add(category.id)
+            new_book.save()
+        return redirect(to='staff')
+    else:
+        form = BookForm()
+    return render(request, 'core/add_book.html', {
+        'new_book' : new_book,
+        'form' : form,
+        'categories' : categories,
+    })

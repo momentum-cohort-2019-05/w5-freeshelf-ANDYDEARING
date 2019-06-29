@@ -12,4 +12,5 @@ urlpatterns = [
         path('staff', views.staff_page, name='staff'),
         path('edit-book/<int:pk>', views.edit_book, name='edit-book'),
         path('delete-book/<int:pk>', views.delete_book, name='delete-book'),
+        path('add-book', views.add_book, name='add-book'),
 ]
