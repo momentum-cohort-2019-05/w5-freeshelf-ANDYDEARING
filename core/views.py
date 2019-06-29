@@ -141,6 +141,16 @@ def edit_book(request,pk):
     book = Book.objects.get(pk=pk)
     categories = Category.objects.all()
     if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            # breakpoint()
+            book.title = form.cleaned_data['title']
+            book.author = form.cleaned_data['author']
+            book.url = form.cleaned_data['url']
+            book.description = form.cleaned_data['description']
+            book.image_url = form.cleaned_data['image_url']
+            book.category_set = form.cleaned_data['category']
+            book.save()
         return redirect(to='staff')
     else:
         form = BookForm()

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Edit {{book.title}}</h1>
+    <form action="{% url 'edit-book' pk=book.pk %}" method="POST">
+        {% csrf_token %}
+        <p>Title: <input required type="text" size="50" name="{{ form.title.html_name }}" value="{{book.title}}"></p>
+        <p>Author: <input required type="text" size="50" name="{{ form.author.html_name }}" value="{{book.author}}"></p>
+        <p>URL: <input required type="text" size="50" name="{{ form.url.html_name }}" value="{{book.url}}"></p>
+        <p>Description: <input required type="text" size="50" name="{{ form.description.html_name }}" value="{{book.description}}"></p>
+        <p>Image URL: <input type="text" size="50" name="{{ form.image_url.html_name }}" value="{{book.image_url}}"></p>
+        <p>Category: <select size="{{ categories.all.count }}" required name="{{ form.category.html_name}}" multiple>
+            {% for category in categories %}
+                <option value="{{ category.id }}" 
+                {% if category in book.category.all %}
+                selected=True
+                {% endif %}>{{ category }}</option>
+            {% endfor %}
+        </select></p>
+        <br>
+        <br>
+        <button>Submit</button>
+    </form>
+{% endblock %}
