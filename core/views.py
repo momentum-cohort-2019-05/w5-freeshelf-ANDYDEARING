@@ -210,13 +210,36 @@ def suggestions(request):
 @permission_required('core.can_add_edit_delete')
 def approve_suggestion(request,pk):
     suggestion = BookSuggestion.objects.get(pk=pk)
+    categories = Category.objects.all()
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        book = Book()
+        if form.is_valid():
+            book.title = form.cleaned_data['title']
+            book.author = form.cleaned_data['author']
+            book.url = form.cleaned_data['url']
+            book.description = form.cleaned_data['description']
+            book.image_url = form.cleaned_data['image_url']
+            book.save()
+            book.category.clear()
+            for category in form.cleaned_data['category']:
+                book.category.add(category.id)
+            book.save()
+            suggestion.delete()
+        return redirect(to='suggestions')
+    else:
+        form = BookForm()
     return render(request, 'core/approve_suggestion.html', {
-        'suggestion' : suggestion
+        'suggestion' : suggestion,
+        'form' : form,
+        'categories' : categories,
     })
 
 @permission_required('core.can_add_edit_delete')
 def delete_suggestion(request,pk):
     suggestion = BookSuggestion.objects.get(pk=pk)
+    suggestion_title = suggestion.title
+    suggestion.delete()
     return render(request, 'core/delete_suggestion.html', {
-        'suggestion' : suggestion
+        'suggestion_title' : suggestion_title
     })
