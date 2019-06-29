@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import permission_required
 from core.models import Book, Category, Favorite, Comment
-from core.forms import FavoriteButtonForm, CommentCreateForm
+from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm
 
 
 # Create your views here.
@@ -139,8 +139,13 @@ def staff_page(request):
 @permission_required('core.can_add_edit_delete')
 def edit_book(request,pk):
     book = Book.objects.get(pk=pk)
+    if request.method == 'POST':
+        return redirect(to='staff')
+    else:
+        form = BookForm()
     return render(request, 'core/edit_book.html', {
-        'book': book
+        'book' : book,
+        'form' : form
     })
 
 @permission_required('core.can_add_edit_delete')
