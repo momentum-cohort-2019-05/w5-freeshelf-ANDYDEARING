@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>Suggestions</h1>
+    <h3>Pending Suggestions</h3>
+    {% if suggestions %}
+        {% for suggestion in suggestions %}
+            <p>
+                {{suggestion.title}} - {{suggestion.user}}
+                {% if perms.core.can_add_edit_delete %}
+                    <a href="{% url 'approve-suggestion' pk=suggestion.id %}">Approve</a>
+                    <a href="{% url 'delete-suggestion' pk=suggestion.id %}">Delete</a>
+                {% endif %}
+            </p>
+        {% endfor %}
+    {% else %}
+        <p>There are no pending suggestions.</p>
+    {% endif %}
+{% endblock %}

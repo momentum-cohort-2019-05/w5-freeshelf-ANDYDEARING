@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Add Book</h1>
+    <form action="{% url 'add-book' %}" method="POST">
+        {% csrf_token %}
+        <p>Title: <input required type="text" size="50" name="{{ form.title.html_name }}"></p>
+        <p>Author: <input required type="text" size="50" name="{{ form.author.html_name }}"></p>
+        <p>URL: <input required type="text" size="50" name="{{ form.url.html_name }}"></p>
+        <p>Description: <input required type="text" size="50" name="{{ form.description.html_name }}"></p>
+        <p>Image URL: <input type="text" size="50" name="{{ form.image_url.html_name }}"></p>
+        <p>Category: <select size="{{ categories.all.count }}" required name="{{ form.category.html_name}}" multiple>
+            {% for category in categories %}
+                <option value="{{ category.id }}">{{ category }}</option>
+            {% endfor %}
+        </select></p>
+        <br>
+        <br>
+        <button>Submit</button>
+    </form>
+{% endblock %}
