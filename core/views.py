@@ -139,13 +139,15 @@ def staff_page(request):
 @permission_required('core.can_add_edit_delete')
 def edit_book(request,pk):
     book = Book.objects.get(pk=pk)
+    categories = Category.objects.all()
     if request.method == 'POST':
         return redirect(to='staff')
     else:
         form = BookForm()
     return render(request, 'core/edit_book.html', {
         'book' : book,
-        'form' : form
+        'form' : form,
+        'categories' : categories,
     })
 
 @permission_required('core.can_add_edit_delete')
