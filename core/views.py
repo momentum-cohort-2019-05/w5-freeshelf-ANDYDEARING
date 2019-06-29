@@ -128,5 +128,5 @@ def user_profile(request,pk):
     })
 
 def staff_page(request):
-    pass
+    return render(request, 'core/staff.html', {})
 
