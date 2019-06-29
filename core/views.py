@@ -7,7 +7,6 @@ from core.models import Book, Category, Favorite, Comment, BookSuggestion
 from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm, BookSuggestionForm, CategoryCreateForm
 
 
-# Create your views here.
 class BookListView(generic.ListView):
     model = Book
 
