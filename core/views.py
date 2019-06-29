@@ -192,3 +192,10 @@ def add_book(request):
         'form' : form,
         'categories' : categories,
     })
+
+def suggestions(request):
+    if request.method == 'POST':
+        pass
+    else:
+        return render(request, 'core/suggestions.html', {
+        })

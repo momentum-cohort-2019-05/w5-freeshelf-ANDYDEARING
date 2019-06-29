@@ -16,6 +16,7 @@
     <p>Logged in as {{request.user}} 
       <a href="{% url 'auth_logout' %}">Logout</a>
       <a href="{% url 'favorites' request.user.id %}">Favorites</a>
+      <a href="{% url 'suggestions' %}">Suggestions</a>
       {% if perms.core.can_add_edit_delete %}
         <a href="{% url 'staff' %}">Staff</a>
       {% endif %}
