@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>{{ user }}</h1>
+<h3>Comments</h3>
+{% for comment in comments %}
+<a href="{{comment.target_book.get_absolute_url}}">{{comment.target_book}}</a>
+<p>{{comment.content}}</p>
+<p>{{comment.created_at}}</p>
+{% endfor %}
+<h3>Favorites</h3>
+{% for book in favorite_books %}
+<p><a href="{{book.get_absolute_url}}">{{book}}</a></p>
+{% endfor %}
+{% endblock %}

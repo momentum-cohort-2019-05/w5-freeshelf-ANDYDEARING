@@ -25,6 +25,7 @@ class Book(models.Model):
 
     class Meta:
         ordering = [ 'added_at', 'title']
+        permissions = (('can_add_edit_delete',"Add/Edit/Delete Books"),)
 
     def __str__(self):
         return self.title

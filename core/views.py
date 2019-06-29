@@ -113,3 +113,20 @@ def make_comment(request,pk):
             'form' : form,
         })
 
+def user_profile(request,pk):
+    user = User.objects.get(pk=pk)
+    favorites = user.favorite_set.all()
+    comments = user.comment_set.all()
+    favorite_books=[]
+    for favorite in favorites:
+        favorite_books.append(favorite.favorite_book)
+    # breakpoint()
+    return render(request, 'core/user_profile.html', {
+        'user' : user,
+        'favorite_books' : favorite_books,
+        'comments' : comments,
+    })
+
+def staff_page(request):
+    pass
+

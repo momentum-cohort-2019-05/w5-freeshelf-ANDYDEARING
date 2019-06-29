@@ -41,7 +41,7 @@
         <h3>User Comments</h3>
         {% for comment in comments %}
         <p>{{comment.content}}</p>
-        <p>{{comment.user}}</p>
+        <a href="{% url 'user-profile' pk=comment.user.pk %}"><p>{{comment.user}}</p></a>
         <p>{{comment.created_at}}</p>
         {% endfor %}
     </div>

@@ -1,11 +1,4 @@
-.sidebar-nav {
-    margin-top: 20px;
-    padding: 0;
-    list-style: none;
-}
-
-
-.book-list img {
+.book-img {
     width: 100px;
     margin: 5px;
 }
