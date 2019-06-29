@@ -143,7 +143,6 @@ def edit_book(request,pk):
     if request.method == 'POST':
         form = BookForm(request.POST)
         if form.is_valid():
-            # breakpoint()
             book.title = form.cleaned_data['title']
             book.author = form.cleaned_data['author']
             book.url = form.cleaned_data['url']
@@ -163,7 +162,6 @@ def edit_book(request,pk):
 @permission_required('core.can_add_edit_delete')
 def delete_book(request,pk):
     book = Book.objects.get(pk=pk)
-    return render(request, 'core/delete_book.html', {
-        'book': book
-    })
+    book.delete()
+    return redirect(to='staff')
 
