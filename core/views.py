@@ -131,5 +131,22 @@ def user_profile(request,pk):
 
 @permission_required('core.can_add_edit_delete')
 def staff_page(request):
-    return render(request, 'core/staff.html', {})
+    book_list = Book.objects.all()
+    return render(request, 'core/staff.html', {
+        'book_list' : book_list,
+    })
+
+@permission_required('core.can_add_edit_delete')
+def edit_book(request,pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, 'core/edit_book.html', {
+        'book': book
+    })
+
+@permission_required('core.can_add_edit_delete')
+def delete_book(request,pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, 'core/delete_book.html', {
+        'book': book
+    })
 

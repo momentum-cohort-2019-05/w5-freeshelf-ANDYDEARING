@@ -10,4 +10,6 @@ urlpatterns = [
         path('make-comment/<int:pk>', views.make_comment, name='make-comment'),
         path('user-profile/<int:pk>', views.user_profile, name='user-profile'),
         path('staff', views.staff_page, name='staff'),
+        path('edit-book/<int:pk>', views.edit_book, name='edit-book'),
+        path('delete-book/<int:pk>', views.delete_book, name='delete-book'),
 ]
