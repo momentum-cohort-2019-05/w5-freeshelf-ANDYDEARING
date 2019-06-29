@@ -13,6 +13,21 @@ class Category(models.Model):
     def get_absolute_url(self):
         return reverse('category-books', args=[str(self.id)])
 
+class BookSuggestion(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=200, null=True)
+    url = models.URLField(unique=True)
+    description = models.TextField(max_length=1000, null=True)
+    image_url = models.URLField(null=True)
+    suggested_categories = models.CharField(max_length=1000, null=True)
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        ordering = [ 'title' ]
+
+    def __str__(self):
+        return self.title
+
 class Book(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200)

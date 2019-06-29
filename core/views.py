@@ -2,9 +2,9 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib.auth.decorators import permission_required
-from core.models import Book, Category, Favorite, Comment
-from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm
+from django.contrib.auth.decorators import permission_required, login_required
+from core.models import Book, Category, Favorite, Comment, BookSuggestion
+from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm, BookSuggestionForm
 
 
 # Create your views here.
@@ -42,6 +42,7 @@ def category_books(request, pk):
         'category_name': category_name
      })
 
+@login_required
 def favorites(request,pk):
     sort_types = ['favorited_at','added_at', 'author', 'title',]
     user_name = User.objects.get(id=pk).username
@@ -96,6 +97,7 @@ def book_detail(request,pk):
             'form' : form
         })
 
+@login_required
 def make_comment(request,pk):
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)
@@ -193,9 +195,28 @@ def add_book(request):
         'categories' : categories,
     })
 
+@login_required
 def suggestions(request):
     if request.method == 'POST':
         pass
     else:
+        suggestions = BookSuggestion.objects.all()
+        form = BookSuggestionForm()
         return render(request, 'core/suggestions.html', {
+            'form' : form,
+            'suggestions' : suggestions
         })
+
+@permission_required('core.can_add_edit_delete')
+def approve_suggestion(request,pk):
+    suggestion = BookSuggestion.objects.get(pk=pk)
+    return render(request, 'core/approve_suggestion.html', {
+        'suggestion' : suggestion
+    })
+
+@permission_required('core.can_add_edit_delete')
+def delete_suggestion(request,pk):
+    suggestion = BookSuggestion.objects.get(pk=pk)
+    return render(request, 'core/delete_suggestion.html', {
+        'suggestion' : suggestion
+    })

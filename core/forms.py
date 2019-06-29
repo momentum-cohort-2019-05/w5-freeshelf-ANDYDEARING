@@ -1,5 +1,5 @@
 from django import forms
-from core.models import Book, Favorite, Comment, Category
+from core.models import Book, Favorite, Comment, Category, BookSuggestion
 
 class FavoriteButtonForm(forms.Form):
     favorited = forms.BooleanField(required=False)
@@ -17,3 +17,11 @@ class BookForm(forms.Form):
 
 class CategoryCreateForm(forms.Form):
     category = forms.CharField(max_length=200)
+
+class BookSuggestionForm(forms.Form):
+    title = forms.CharField(max_length=200)
+    author = forms.CharField(max_length=200)
+    url = forms.URLField()
+    description = forms.CharField(max_length=1000)
+    image_url = forms.URLField()
+    suggested_categories: forms.CharField(max_length=1000)
