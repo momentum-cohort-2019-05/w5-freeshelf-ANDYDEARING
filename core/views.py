@@ -2,8 +2,10 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib.auth.decorators import permission_required
 from core.models import Book, Category, Favorite, Comment
 from core.forms import FavoriteButtonForm, CommentCreateForm
+
 
 # Create your views here.
 class BookListView(generic.ListView):
@@ -127,6 +129,7 @@ def user_profile(request,pk):
         'comments' : comments,
     })
 
+@permission_required('core.can_add_edit_delete')
 def staff_page(request):
     return render(request, 'core/staff.html', {})
 
