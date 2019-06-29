@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib.auth.decorators import permission_required, login_required
 from core.models import Book, Category, Favorite, Comment, BookSuggestion
-from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm, BookSuggestionForm
+from core.forms import FavoriteButtonForm, CommentCreateForm, BookForm, BookSuggestionForm, CategoryCreateForm
 
 
 # Create your views here.
@@ -254,4 +254,19 @@ def delete_suggestion(request,pk):
     suggestion.delete()
     return render(request, 'core/delete_suggestion.html', {
         'suggestion_title' : suggestion_title
+    })
+
+@permission_required('core.can_add_edit_delete')
+def make_category(request):
+    if request.method == 'POST':
+        form = CategoryCreateForm(request.POST)
+        if form.is_valid():
+            new_category = Category()
+            new_category.name = form.cleaned_data['category']
+            new_category.save()
+        return redirect(to='staff')
+    else:
+        form = CategoryCreateForm()
+    return render(request, 'core/make_category.html', {
+        'form' : form,
     })

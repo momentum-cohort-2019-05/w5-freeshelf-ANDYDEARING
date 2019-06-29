@@ -4,6 +4,9 @@
     <div>
         <a href="{% url 'add-book' %}">Add Book</a>
     </div>
+    <div>
+        <a href="{% url 'make-category' %}">Add Category</a>
+    </div>
     {% if book_list %}
         {% for book in book_list %}
         <div>

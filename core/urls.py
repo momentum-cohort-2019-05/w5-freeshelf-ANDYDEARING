@@ -16,4 +16,5 @@ urlpatterns = [
         path('suggestions', views.suggestions, name='suggestions'),
         path('approve-suggestion/<int:pk>', views.approve_suggestion, name='approve-suggestion'),
         path('delete-suggestion/<int:pk>', views.delete_suggestion, name='delete-suggestion'),
+        path('make-category', views.make_category, name='make-category'),
 ]
