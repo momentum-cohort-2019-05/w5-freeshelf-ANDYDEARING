@@ -198,7 +198,19 @@ def add_book(request):
 @login_required
 def suggestions(request):
     if request.method == 'POST':
-        pass
+        form = BookSuggestionForm(request.POST)
+        # breakpoint()
+        if form.is_valid():
+            new_suggestion = BookSuggestion()
+            new_suggestion.user = request.user
+            new_suggestion.title = form.cleaned_data['title']
+            new_suggestion.author = form.cleaned_data['author']
+            new_suggestion.url = form.cleaned_data['url']
+            new_suggestion.description = form.cleaned_data['description']
+            new_suggestion.image_url = form.cleaned_data['image_url']
+            new_suggestion.suggested_categories = form.cleaned_data['suggested_categories']
+            new_suggestion.save()
+        return redirect(to='suggestions')
     else:
         suggestions = BookSuggestion.objects.all()
         form = BookSuggestionForm()

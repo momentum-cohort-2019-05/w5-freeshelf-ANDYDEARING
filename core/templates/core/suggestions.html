@@ -15,4 +15,10 @@
     {% else %}
         <p>There are no pending suggestions.</p>
     {% endif %}
+    <h3>Make A New Suggestion</h3>
+    <form action="{% url 'suggestions' %}" method="POST">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button>Submit</button>
+    </form>
 {% endblock %}

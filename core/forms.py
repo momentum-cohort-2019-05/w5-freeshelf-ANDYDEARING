@@ -24,4 +24,4 @@ class BookSuggestionForm(forms.Form):
     url = forms.URLField()
     description = forms.CharField(max_length=1000)
     image_url = forms.URLField()
-    suggested_categories: forms.CharField(max_length=1000)
+    suggested_categories = forms.CharField(max_length=1000)
