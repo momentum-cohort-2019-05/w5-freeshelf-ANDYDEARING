@@ -1,21 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Approve {{suggestion.title}}</h1>
+    <h1>Approve "{{suggestion.title}}"</h1>
     <form action="{% url 'approve-suggestion' pk=suggestion.pk %}" method="POST">
-            {% csrf_token %}
-            <p>Title: <input required type="text" size="50" name="{{ form.title.html_name }}" value="{{suggestion.title}}"></p>
-            <p>Author: <input required type="text" size="50" name="{{ form.author.html_name }}" value="{{suggestion.author}}"></p>
-            <p>URL: <input required type="text" size="50" name="{{ form.url.html_name }}" value="{{suggestion.url}}"></p>
-            <p>Description: <input required type="text" size="50" name="{{ form.description.html_name }}" value="{{suggestion.description}}"></p>
-            <p>Image URL: <input type="text" size="50" name="{{ form.image_url.html_name }}" value="{{suggestion.image_url}}"></p>
-            <p>Suggested Categories: {{suggestion.suggested_categories}}</p>
-            <p>Category: <select size="{{ categories.all.count }}" required name="{{ form.category.html_name}}" multiple>
-                {% for category in categories %}
-                    <option value="{{ category.id }}">{{ category }}</option>
-                {% endfor %}
-            </select></p>
-            <br>
-            <br>
-            <button>Submit</button>
-        </form>
+        {% csrf_token %}
+        <div class="flex flex-wrap">
+            <div class="pr5">
+                <p>Title<p>
+                <p><input required type="text" size="40" name="{{ form.title.html_name }}" value="{{suggestion.title}}"></p>
+                <p>Author</p>
+                <p><input required type="text" size="40" name="{{ form.author.html_name }}" value="{{suggestion.author}}"></p>
+                <p>URL</p>
+                <p><input required type="text" size="40" name="{{ form.url.html_name }}" value="{{suggestion.url}}"></p>
+                <p>Description</p>
+                <p><input required type="text" size="40" name="{{ form.description.html_name }}" value="{{suggestion.description}}"></p>
+                <p>Image URL</p>
+                <p><input type="text" size="40" name="{{ form.image_url.html_name }}" value="{{suggestion.image_url}}"></p>
+            </div>
+            <div>
+                <p>Catgory</p>
+                    <select size="{{ categories.all.count }}" required name="{{ form.category.html_name}}" multiple>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}">{{ category }}</option>
+                        {% endfor %}
+                    </select>
+                <br>
+                <a href="{% url 'make-category' %}">Need to add a category?</a>
+            </div>
+        </div>
+        <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Approve</button>
+    </form>
 {% endblock %}
