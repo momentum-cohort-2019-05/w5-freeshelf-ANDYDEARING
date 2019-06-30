@@ -40,6 +40,9 @@
             {% endfor %}
           <br>
           <i>Added at {{ book.added_at }}</i>
+          {% if book.times_favorited > 0 %}
+            <p class="green">Favorited by {{book.times_favorited}} User(s).</p>
+          {% endif %}
         </div>
       </li>
     {% endfor %}
