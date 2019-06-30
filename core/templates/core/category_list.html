@@ -1,42 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ category_name }}</h1>
   {% if book_list %}
-  <div>
-    <p>Sort by:
-    {% for sort in sort_types %}
-      {% if sort == sort_by %}
-        <strong>{{sort}}</strong>
-      {% else %}
-        <a href="?sort_by={{sort}}"> {{sort}} </a>
-      {% endif %}
-    {% endfor %}
-    </p>
-  </div>
+  <div class="tl pt3">
+      <p>Categories:
+          <a href="{% url 'home' %}">All </a>
+        {% for category in category_list %}
+          {% if category == chosen_category %}
+            <strong>{{ category }}</strong>
+          {% else %}
+            <a href="{{ category.get_absolute_url }}">{{ category }}</a>
+          {% endif %}
+        {% endfor %}
+      </p>
+    </div>
+    <div class="tl">
+      <p>Sort by:
+      {% for sort in sort_types %}
+        {% if sort == sort_by %}
+          <strong> {{sort}} </strong>
+        {% else %}
+          <a href="?sort_by={{sort}}"> {{sort}}</a>
+        {% endif %}
+      {% endfor %}
+      </p>
+    </div>
   <ul class="book-list">
-    {% for book in book_list %}
-      <li>
-        {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}"></a>{% endif %}
-        <div class='book-info'>
-          <a href="{{book.get_absolute_url}}"><strong>{{ book.title }}</strong></a> by {{ book.author }} 
-          <br>
-          <a href="{{ book.url }}" target="_blank">{{book.url}}</a>
-          <br>
-          {{ book.description }}
-          <br>
-          <p>
+      {% for book in book_list %}
+        <li class="flex pb4">
+          <div class="pr2">
+            {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}" style="max-width: 150px;"></a>{% endif %}
+          </div>
+          <div>
+            <a href="{{book.get_absolute_url}}"><strong>{{ book.title }}</strong></a> by {{ book.author }} 
+            <br>
+            <a href="{{ book.url }}" target="_blank">{{book.url}}</a>
+            <br>
+            {{ book.description }}
+            <br>
             <strong>Categories: </strong>
-            {% for type in book.category.all %}
+              {% for type in book.category.all %}
                 <a href="{{ type.get_absolute_url }}">{{ type }}</a>
-            {% endfor %}
-          </p>
-          <br>
-          <i>Added at {{ book.added_at }}</i>
-        </div>
-      </li>
-    {% endfor %}
-  </ul>
+              {% endfor %}
+            <br>
+            <i>Added at {{ book.added_at }}</i>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
   {% else %}
     <p>There are no books.</p>
   {% endif %}       

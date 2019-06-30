@@ -29,18 +29,20 @@ def all_books(request):
 
 def category_books(request, pk):
     sort_types = ['added_at', 'author', 'title',]
-    category_name = Category.objects.filter(id=pk).first().name
+    chosen_category = Category.objects.filter(id=pk).first()
     sort_by = request.GET.get('sort_by', default='added_at')
     if sort_by not in sort_types:
         sort_by = 'added_at'
 
+    category_list = Category.objects.all()
     book_list = Book.objects.filter(category__id=pk).order_by(sort_by)
 
     return render(request, 'core/category_list.html', {
         'book_list': book_list,
         'sort_by': sort_by,
         'sort_types': sort_types,
-        'category_name': category_name,
+        'chosen_category': chosen_category,
+        'category_list': category_list,
      })
 
 @login_required
