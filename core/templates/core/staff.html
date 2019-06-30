@@ -7,7 +7,7 @@
     <h3>Current Books</h3>
     {% if book_list %}
         {% for book in book_list %}
-        <div class="flex">
+        <div class="flex flex-wrap-m ">
             <div class="pr2">
                 {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}" style="max-width: 100px;"></a>{% endif %}
             </div>

@@ -27,7 +27,7 @@
     </div>
   <ul class="book-list">
       {% for book in book_list %}
-        <li class="flex pb4">
+        <li class="flex flex-wrap-m pb4">
           <div class="pr2">
             {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}" style="max-width: 150px;"></a>{% endif %}
           </div>
