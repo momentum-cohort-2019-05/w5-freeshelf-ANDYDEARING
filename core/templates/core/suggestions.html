@@ -27,7 +27,7 @@
                     <p>
                         {{suggestion.title}} - <a href="{% url 'user-profile' pk=suggestion.user.pk %}">{{suggestion.user}}</a>
                         {% if perms.core.can_add_edit_delete %}
-                            <a href="{% url 'approve-suggestion' pk=suggestion.id %}">Approve</a>
+                            <a href="{% url 'approve-suggestion' pk=suggestion.id %}">Inspect/Approve</a>
                             <a href="{% url 'delete-suggestion' pk=suggestion.id %}">Delete</a>
                         {% endif %}
                     </p>
