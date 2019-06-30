@@ -2,6 +2,7 @@
 {% block content %}
 <h1>Edit {{book.title}}</h1>
     <form action="{% url 'edit-book' pk=book.pk %}" method="POST">
+        {% csrf_token %}
         <div class="flex flex-wrap">
                 <div class="pr5">
                     <p>Title<p>
