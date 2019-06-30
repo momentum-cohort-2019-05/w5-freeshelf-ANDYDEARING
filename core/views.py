@@ -52,11 +52,18 @@ def favorites(request,pk):
     sort_by = request.GET.get('sort_by', default='favorited_at')
     if sort_by not in sort_types:
         sort_by = 'favorited_at'
-
     book_list = []
-    fave_list = request.user.favorite_set.all()
+    fave_list = request.user.favorite_set.all().order_by('-favorited_at')
     for favorite in fave_list:
         book_list.append(favorite.favorite_book)
+
+    # AREA FOR IMPROVEMENT book_list should be a QuerySet
+    if sort_by == 'added_at':
+        book_list.sort(key=lambda book:book.added_at)
+    if sort_by == 'author':
+        book_list.sort(key=lambda book:book.author)
+    if sort_by == 'title':
+        book_list.sort(key=lambda book:book.title)
 
     return render(request, 'core/favorites.html', {
         'user_name': user_name,
@@ -255,9 +262,8 @@ def delete_suggestion(request,pk):
     suggestion = BookSuggestion.objects.get(pk=pk)
     suggestion_title = suggestion.title
     suggestion.delete()
-    return render(request, 'core/delete_suggestion.html', {
-        'suggestion_title' : suggestion_title
-    })
+    return redirect(to='suggestions')
+
 
 @permission_required('core.can_add_edit_delete')
 def make_category(request):

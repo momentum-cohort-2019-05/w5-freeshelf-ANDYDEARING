@@ -1,24 +1,41 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Suggestions</h1>
-    <h3>Pending Suggestions</h3>
-    {% if suggestions %}
-        {% for suggestion in suggestions %}
-            <p>
-                {{suggestion.title}} - {{suggestion.user}}
-                {% if perms.core.can_add_edit_delete %}
-                    <a href="{% url 'approve-suggestion' pk=suggestion.id %}">Approve</a>
-                    <a href="{% url 'delete-suggestion' pk=suggestion.id %}">Delete</a>
-                {% endif %}
-            </p>
-        {% endfor %}
-    {% else %}
-        <p>There are no pending suggestions.</p>
-    {% endif %}
-    <h3>Make A New Suggestion</h3>
-    <form action="{% url 'suggestions' %}" method="POST">
-        {% csrf_token %}
-        {{form.as_p}}
-        <button>Submit</button>
-    </form>
+    <div class="flex flex-wrap">
+        <div class="pr5">
+            <h3>Make A New Suggestion</h3>
+            <form action="{% url 'suggestions' %}" method="POST">
+                {% csrf_token %}
+                <p>Title<p>
+                <p><input required type="text" size="40" name="{{ form.title.html_name }}"></p>
+                <p>Author</p>
+                <p><input required type="text" size="40" name="{{ form.author.html_name }}"></p>
+                <p>URL</p>
+                <p><input required type="text" size="40" name="{{ form.url.html_name }}"></p>
+                <p>Description</p>
+                <p><input required type="text" size="40" name="{{ form.description.html_name }}"></p>
+                <p>Image URL</p>
+                <p><input type="text" size="40" name="{{ form.image_url.html_name }}"></p>
+                <p>Suggested Catgories</p>
+                <p><input type="text" size="40" name="{{ form.suggested_categories.html_name }}"></p>
+                <button>Submit</button>
+            </form>
+        </div>
+        <div>
+            <h3>Pending Suggestions</h3>
+            {% if suggestions %}
+                {% for suggestion in suggestions %}
+                    <p>
+                        {{suggestion.title}} - <a href="{% url 'user-profile' pk=suggestion.user.pk %}">{{suggestion.user}}</a>
+                        {% if perms.core.can_add_edit_delete %}
+                            <a href="{% url 'approve-suggestion' pk=suggestion.id %}">Approve</a>
+                            <a href="{% url 'delete-suggestion' pk=suggestion.id %}">Delete</a>
+                        {% endif %}
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>There are no pending suggestions.</p>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}
