@@ -1,48 +1,58 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <a href="{{book.get_absolute_url}}"><h1>{{ book.title }}</h1></a> by {{ book.author }} 
-    {% if user.is_authenticated %}
-        {% if user in favorite_users %}
-            <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="{{ form.favorited.html_name }}" value="False">
-                <button>Unfavorite</button>
-            </form>
-        {% else %}
-            <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
-                {% csrf_token %}
-                <input type="hidden" name="{{ form.favorited.html_name }}" value="True">
-                <button>Favorite</button>
-            </form>
+    <a href="{{book.get_absolute_url}}"><h1>{{ book.title }}</h1></a>
+    <i>by {{ book.author }}</i>
+    <div class="pt2 pb2">
+        {% if user.is_authenticated %}
+            {% if user in favorite_users %}
+                <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="{{ form.favorited.html_name }}" value="False">
+                    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red">Unfavorite</button>
+                </form>
+            {% else %}
+                <form action="{% url 'book-detail' pk=book.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="{{ form.favorited.html_name }}" value="True">
+                    <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Favorite</button>
+                </form>
+            {% endif %}
         {% endif %}
-    {% endif %}
-    <div>
-    {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}"></a>{% endif %}
     </div>
-    <br>
-    <p>This has been favorited by {{ book.times_favorited}} user(s).</p>
-    <br>
-    <a href="{{ book.url }}" target="_blank">{{book.url}}</a>
-    <br>
-    {{ book.description }}
-    <br>
-    <p>
-        <strong>Categories: </strong>
-        {% for type in book.category.all %}
-            <a href="{{ type.get_absolute_url }}">{{ type }}</a>
-        {% endfor %}
-    </p>
-    <br>
-    <i>Added at {{ book.added_at }}</i> 
-    <br>
-    <a href="{% url 'make-comment' pk=book.pk %}">Make Comment</a>
-    <div>
-        <h3>User Comments</h3>
+    <div class="flex flex-wrap">
+        <div class="pr4">
+            {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img style="max-width: 250px;" src="{{book.image_url}}"></a>{% endif %}
+        </div>
+        <div>
+            <a href="{{ book.url }}" target="_blank">{{book.url}}</a>
+            <br>
+            {{ book.description }}
+            <br>
+            <p>
+                <strong>Categories: </strong>
+                {% for type in book.category.all %}
+                <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+                {% endfor %}
+            </p>
+            <i>Added at {{ book.added_at }}</i> 
+            <br>
+            <p class="green">This has been favorited by {{ book.times_favorited}} user(s).</p>
+        </div>
+    </div>
+    <div class="mt2">
+        <div class="bb">
+            <h3>Comments</h3>
+            <a href="{% url 'make-comment' pk=book.pk %}">Make Comment</a>
+            <br>
+            <br>
+        </div>
         {% for comment in comments %}
-        <p>{{comment.content}}</p>
-        <a href="{% url 'user-profile' pk=comment.user.pk %}"><p>{{comment.user}}</p></a>
-        <p>{{comment.created_at}}</p>
+            <div class="bt">
+                <br>
+                <p>{{comment.content}}</p>
+                <i><a href="{% url 'user-profile' pk=comment.user.pk %}">{{comment.user}}</a>-{{comment.created_at}}</i>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

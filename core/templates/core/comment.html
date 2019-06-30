@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Commenting on {{ book }}</h1>
+    <h3>Commenting on "{{ book }}"</h3>
     <form action="{% url 'make-comment' pk=book.pk %}" method="POST">
         {% csrf_token %}
-        <input type="text" size="50" name="{{ form.content.html_name }}" value="Write your comment here.">
+        <input type="text" size="40" name="{{ form.content.html_name }}" value="Write your comment here.">
         <br>
         <br>
-        <button>Submit</button>
+        <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
     </form>
 
 {% endblock %}
