@@ -17,12 +17,14 @@ def all_books(request):
     if sort_by not in sort_types:
         sort_by = 'added_at'
 
+    category_list = Category.objects.all()
     book_list = Book.objects.all().order_by(sort_by)
     
     return render(request, 'core/book_list.html', {
         'book_list': book_list,
         'sort_by': sort_by,
         'sort_types': sort_types,
+        'category_list': category_list,
      })
 
 def category_books(request, pk):
@@ -38,7 +40,7 @@ def category_books(request, pk):
         'book_list': book_list,
         'sort_by': sort_by,
         'sort_types': sort_types,
-        'category_name': category_name
+        'category_name': category_name,
      })
 
 @login_required
