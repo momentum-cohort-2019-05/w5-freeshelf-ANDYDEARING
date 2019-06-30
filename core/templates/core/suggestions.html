@@ -1,9 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-    <h1>Suggestions</h1>
-    <div class="flex flex-wrap">
-        <div class="pr5">
-            <h3>Make A New Suggestion</h3>
+    <div class="flex flex-wrap pt2">
+        <div class="pr5 pb5">
+            <h5>Make A New Suggestion</h5>
             <form action="{% url 'suggestions' %}" method="POST">
                 {% csrf_token %}
                 <p>Title<p>
@@ -22,7 +21,7 @@
             </form>
         </div>
         <div>
-            <h3>Pending Suggestions</h3>
+            <h5>Pending Suggestions</h5>
             {% if suggestions %}
                 {% for suggestion in suggestions %}
                     <p>
