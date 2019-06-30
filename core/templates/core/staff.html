@@ -1,19 +1,36 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Staff Page</h1>
-    <div>
-        <a href="{% url 'add-book' %}">Add Book</a>
+    <div class="mr4">
+        <a href="{% url 'add-book' %}"><button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Add Book</button></a>
     </div>
-    <div>
-        <a href="{% url 'make-category' %}">Add Category</a>
-    </div>
+    <h3>Current Books</h3>
     {% if book_list %}
         {% for book in book_list %}
-        <div>
-            <p><a href="{{ book.get_absolute_url }}">{{book.title}}</a></p>
-            <p><a href="{% url 'edit-book' pk=book.pk %}">Edit</a>   
-                <a href="{% url 'delete-book' pk=book.pk %}">Delete</a></p>
-            <br>
+        <div class="flex flex-wrap">
+            <div class="pr2">
+                {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}" style="max-width: 150px;"></a>{% endif %}
+            </div>
+            <div>
+                <a href="{{book.get_absolute_url}}"><strong>{{ book.title }}</strong></a> by {{ book.author }} 
+                <br>
+                <a href="{{ book.url }}" target="_blank">{{book.url}}</a>
+                <br>
+                {{ book.description }}
+                <br>
+                <strong>Categories: </strong>
+                    {% for type in book.category.all %}
+                    <a href="{{ type.get_absolute_url }}">{{ type }}</a>
+                    {% endfor %}
+                <br>
+                <i>Added at {{ book.added_at }}</i>
+                {% if book.times_favorited > 0 %}
+                    <p class="green">Favorited by {{book.times_favorited}} User(s).</p>
+                {% endif %}
+                <p><a href="{% url 'edit-book' pk=book.pk %}"><button class="f6 link dim ph3 pv2 mb2 dib black bg-yellow mr4">Edit</button></a>   
+                    <a href="{% url 'delete-confirm' pk=book.pk %}"><buton class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red">Delete</buton></a></p>
+                <br>
+            </div>
         </div>
         {% endfor %}
     {% else %}

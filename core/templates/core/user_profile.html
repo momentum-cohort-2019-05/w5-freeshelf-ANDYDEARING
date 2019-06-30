@@ -10,7 +10,7 @@
         <div class="bt">
             <strong><a href="{{book.get_absolute_url}}">{{book}}</a></strong>
             <p>by {{book.author}}</p>
-            <p><a href="{{book.url}}">{{book.url}}</a></p>
+            <p><a href="{{book.url}}" target="_blank">{{book.url}}</a></p>
         </div>
         {% endfor %}
     </div>
@@ -20,11 +20,11 @@
         </div>
         {% for comment in comments %}
             <div class="bt">
-                <strong>{{comment.content}}</strong>
+                <strong>"{{comment.content}}"</strong>
                 <br>
                 <a href="{{comment.target_book.get_absolute_url}}">{{comment.target_book}}</a>
                 <br>
-                <i>{{comment.user}}</a>-{{comment.created_at}}</i>
+                <i>-{{comment.created_at}}</i>
             </div>
         {% endfor %}
     </div>

@@ -260,10 +260,15 @@ def approve_suggestion(request,pk):
 @permission_required('core.can_add_edit_delete')
 def delete_suggestion(request,pk):
     suggestion = BookSuggestion.objects.get(pk=pk)
-    suggestion_title = suggestion.title
     suggestion.delete()
     return redirect(to='suggestions')
 
+@permission_required('core.can_add_edit_delete')
+def delete_confirm(request,pk):
+    book = Book.objects.get(pk=pk)
+    return render(request, 'core/delete_confirm.html', {
+        'book' : book,
+    })
 
 @permission_required('core.can_add_edit_delete')
 def make_category(request):

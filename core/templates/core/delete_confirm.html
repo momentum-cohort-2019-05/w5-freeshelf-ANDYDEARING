@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h3 class="red">Confirm Delete "{{book.title}}"</h3>
+<p>Are you sure?</p>
+<div class="flex">
+    <a href="{% url 'staff' %}"><button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-blue mr4">Go Back</button></a>
+    <a href="{% url 'delete-book' pk=book.pk %}"><button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-red">Delete</button></a>
+</div>
+{% endblock %}
