@@ -4,6 +4,6 @@
     <form action="{% url 'make-category' %}" method="POST">
         {% csrf_token %}
         <input type="text" name="category">
-        <button>Submit</button>
+        <button class="f6 link dim ph3 pv2 mb2 dib white bg-dark-green">Submit</button>
     </form>
 {% endblock %}

@@ -1,14 +1,32 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>{{ user }}</h1>
-<h3>Comments</h3>
-{% for comment in comments %}
-<a href="{{comment.target_book.get_absolute_url}}">{{comment.target_book}}</a>
-<p>{{comment.content}}</p>
-<p>{{comment.created_at}}</p>
-{% endfor %}
-<h3>Favorites</h3>
-{% for book in favorite_books %}
-<p><a href="{{book.get_absolute_url}}">{{book}}</a></p>
-{% endfor %}
+<h1>{{ user }}'s Profile Page</h1>
+<div class="mt2 flex flex-wrap">
+    <div class="pr3 pb3">
+        <div class="bb">
+            <h3>Favorites</h3>
+        </div>
+        {% for book in favorite_books %}
+        <div class="bt">
+            <strong><a href="{{book.get_absolute_url}}">{{book}}</a></strong>
+            <p>by {{book.author}}</p>
+            <p><a href="{{book.url}}">{{book.url}}</a></p>
+        </div>
+        {% endfor %}
+    </div>
+    <div>
+        <div class="bb">
+            <h3>Comments</h3>
+        </div>
+        {% for comment in comments %}
+            <div class="bt">
+                <strong>{{comment.content}}</strong>
+                <br>
+                <a href="{{comment.target_book.get_absolute_url}}">{{comment.target_book}}</a>
+                <br>
+                <i>{{comment.user}}</a>-{{comment.created_at}}</i>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
