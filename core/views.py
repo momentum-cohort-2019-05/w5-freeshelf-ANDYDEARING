@@ -162,6 +162,7 @@ def edit_book(request,pk):
             book.image_url = form.cleaned_data['image_url']
             book.save()
             book.category.clear()
+            # breakpoint()
             for category in form.cleaned_data['category']:
                 book.category.add(category.id)
             book.save()
