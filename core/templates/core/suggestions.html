@@ -3,16 +3,17 @@
     <div class="flex flex-wrap pt2">
         <div class="pr5 pb5">
             <h5>Make A New Suggestion</h5>
+            <p class=red>All Fields Required</p>
             <form action="{% url 'suggestions' %}" method="POST">
                 {% csrf_token %}
                 <p>Title<p>
                 <p><input required type="text" size="40" name="{{ form.title.html_name }}"></p>
                 <p>Author</p>
-                <p><input required type="text" size="40" name="{{ form.author.html_name }}"></p>
+                <p><input type="text" size="40" name="{{ form.author.html_name }}"></p>
                 <p>URL</p>
                 <p><input required type="text" size="40" name="{{ form.url.html_name }}"></p>
                 <p>Description</p>
-                <p><input required type="text" size="40" name="{{ form.description.html_name }}"></p>
+                <p><input type="text" size="40" name="{{ form.description.html_name }}"></p>
                 <p>Image URL</p>
                 <p><input type="text" size="40" name="{{ form.image_url.html_name }}"></p>
                 <p>Suggested Catgories</p>

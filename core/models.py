@@ -16,9 +16,9 @@ class Category(models.Model):
 class BookSuggestion(models.Model):
     title = models.CharField(max_length=200)
     author = models.CharField(max_length=200, null=True)
-    url = models.URLField()
-    description = models.TextField(max_length=1000, null=True)
-    image_url = models.URLField(null=True)
+    url = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000, null=True)
+    image_url = models.CharField(max_length=1000, null=True)
     suggested_categories = models.CharField(max_length=1000, null=True)
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
 

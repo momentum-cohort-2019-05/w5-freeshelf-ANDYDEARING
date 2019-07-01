@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
     <h1>Approve "{{suggestion.title}}"</h1>
+    <p class="red">Ensure all fields are complete and URLs are full path (http://...)</p>
     <form action="{% url 'approve-suggestion' pk=suggestion.pk %}" method="POST">
         {% csrf_token %}
         <div class="flex flex-wrap">
