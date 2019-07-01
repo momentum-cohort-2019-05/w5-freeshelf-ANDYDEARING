@@ -14,9 +14,8 @@
       {% endfor %}
       </p>
     </div>
-  <ul class="book-list">
     {% for book in book_list %}
-      <li class="flex pb4">
+      <div class="flex flex-column-m pb4">
         <div class="pr2">
           {% if book.image_url %}<a href="{{book.get_absolute_url}}"><img src="{{book.image_url}}" style="max-width: 150px;"></a>{% endif %}
         </div>
@@ -38,7 +37,7 @@
             <p class="green">Favorited by {{book.times_favorited}} User(s).</p>
           {% endif %}        
         </div>
-      </li>
+      </div>
     {% endfor %}
   </ul>
   {% else %}
